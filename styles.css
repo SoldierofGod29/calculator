@@ -65,6 +65,10 @@ button {
     color: white;
 }
 
+button:hover {
+    background-color: rgb(190, 182, 182);
+}
+
 .bottom-row > .number {
     width: 200px;
 }
