@@ -1,0 +1,79 @@
+/*css styles for calculator project*/
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: solid;
+    border-color: black;
+    border-width: 20px;
+
+}
+
+.top-display {
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    height: 150px;
+    width: 370px;
+    background-color: gray;
+    border: solid;
+    border-color: black;
+    border-width: 10px;
+    font-size: 100px;
+    padding-right: 10px;
+}
+
+.top-row {
+    display: flex;
+}
+
+.second-row {
+    display: flex;
+}
+
+.third-row {
+    display: flex;
+}
+
+.fourth-row {
+    display: flex;
+}
+
+.bottom-row {
+    display: flex;
+}
+
+button {
+    height: 100px;
+    width: 100px;
+    background-color: rgb(59, 55, 55);
+    border: solid;
+    border-color: black;
+    border-width: 10px;
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+}
+
+.bottom-row > .number {
+    width: 200px;
+}
+
+.operator {
+    background-color: orangered;
+}
+
+.clear, .positive-negative, .percent {
+    background-color: gray;
+    color: black;
+}
