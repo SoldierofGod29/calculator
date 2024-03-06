@@ -67,9 +67,23 @@ clearButton.addEventListener('click', function() {
 })
 
 plusButton.addEventListener('click', function(){
-    firstNumber = displayVal;
+    if (operator != "")
+    {
+        secondNumber = displayVal;
+        display.textContent = operate(firstNumber, operator, secondNumber);
+        firstNumber = operate(firstNumber, operator, secondNumber);
+        operator = "";
+        secondNumber = 0;
+        displayVal = 0;
+        console.log(firstNumber);
+    }
+    else
+    {
+        firstNumber = displayVal;
+    }
     operator = "+";
     displayVal = 0;
+    equalButton.disabled = false;
 })
 
 equalButton.addEventListener('click', function(){
@@ -83,7 +97,6 @@ equalButton.addEventListener('click', function(){
 
 numButtons.forEach((button) =>{
     button.addEventListener('click', function() {
-        
         if (display.textContent.length == 7)
         {
             display.setAttribute('style', 'font-size: 90px');
