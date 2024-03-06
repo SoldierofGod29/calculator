@@ -2,14 +2,13 @@
 
 
 //Variables used throught the java-script file
-let clearButton = document.querySelector('.clear');
-
-let plusButton = document.querySelector('#plus');
-
-let equalButton = document.querySelector('.equal');
-
+//let plusButton = document.querySelector('#plus');
 let display = document.querySelector('.top-display');
+
 let numButtons = document.querySelectorAll('.number');
+let operatorButtons = document.querySelectorAll('.operator')
+let equalButton = document.querySelector('.equal');
+let clearButton = document.querySelector('.clear');
 
 let firstNumber = 0;
 let secondNumber = 0;
@@ -66,24 +65,24 @@ clearButton.addEventListener('click', function() {
     })
 })
 
-plusButton.addEventListener('click', function(){
-    if (operator != "")
-    {
-        secondNumber = displayVal;
-        display.textContent = operate(firstNumber, operator, secondNumber);
-        firstNumber = operate(firstNumber, operator, secondNumber);
-        operator = "";
-        secondNumber = 0;
+operatorButtons.forEach((button) => {
+    button.addEventListener('click', function() {
+        if (operator != "")
+        {
+            secondNumber = displayVal;
+            display.textContent = operate(firstNumber, operator, secondNumber);
+            firstNumber = operate(firstNumber, operator, secondNumber);
+            operator = "";
+            secondNumber = 0;
+            displayVal = 0;
+        }
+        else
+        {
+            firstNumber = displayVal;
+        }
+        operator = button.id;
         displayVal = 0;
-        console.log(firstNumber);
-    }
-    else
-    {
-        firstNumber = displayVal;
-    }
-    operator = "+";
-    displayVal = 0;
-    equalButton.disabled = false;
+    })
 })
 
 equalButton.addEventListener('click', function(){
