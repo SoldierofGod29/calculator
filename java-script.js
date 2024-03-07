@@ -86,12 +86,16 @@ operatorButtons.forEach((button) => {
 })
 
 equalButton.addEventListener('click', function(){
+    console.log(firstNumber);
+    console.log(secondNumber)
+    console.log(displayVal)
+    console.log(operator)
     secondNumber = displayVal;
     display.textContent = operate(firstNumber, operator, secondNumber);
+    displayVal = operate(firstNumber, operator, secondNumber);
     operator = "";
     firstNumber = 0;
     secondNumber = 0;
-    displayVal = 0;
 })
 
 numButtons.forEach((button) =>{
