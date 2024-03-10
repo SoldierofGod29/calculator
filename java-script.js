@@ -11,6 +11,7 @@ let clearButton = document.querySelector('.clear');
 
 let firstNumber = 0;
 let secondNumber = 0;
+let total = 0;
 let operator = "";
 let numberPressed = false;
 let amountNumPressed = 0;
@@ -55,7 +56,7 @@ function subtractNums (firstNumber, secondNumber)
 
 function multiplyNums (firstNumber, secondNumber)
 {
-    return firstNumber * secondNumber;
+    return (firstNumber * secondNumber);
 }
 
 function divideNums (firstNumber, secondNumber)
@@ -71,6 +72,7 @@ clearButton.addEventListener('click', function() {
     displayVal = 0;
     operator = "";
     numberPressed = false;
+    amountNumPressed = 0;
     numButtons.forEach((button) => {
         button.disabled = false;
     })
@@ -118,7 +120,15 @@ equalButton.addEventListener('click', function(){
     {
         secondNumber = firstNumber;
     }
-    display.textContent = operate(firstNumber, operator, secondNumber);  
+    if ((operate(firstNumber, operator, secondNumber)).toString().length >= 8)
+    {
+        total = operate(firstNumber, operator, secondNumber);
+        display.textContent = total.toExponential(4);
+    }
+    else
+    {
+        display.textContent = operate(firstNumber, operator, secondNumber);
+    }
     displayVal = operate(firstNumber, operator, secondNumber);
     operator = "";
     firstNumber = 0;
@@ -127,15 +137,20 @@ equalButton.addEventListener('click', function(){
     numButtons.forEach((numb) => {
         numb.disabled = false;
     })
+    operatorButtons.forEach((opbutton) => {
+        opbutton.disabled = false;
+    })
     amountNumPressed = 0;
     equalButton.disabled = true;
 })
 
 numButtons.forEach((button) =>{
     button.addEventListener('click', function() {
-        if (amountNumPressed >= 9)
+        if (amountNumPressed >= 8)
         {
-            button.disabled = true;
+            numButtons.forEach((numb) => {
+                numb.disabled = true;
+            })
         }
        
         if (numberPressed != false)
