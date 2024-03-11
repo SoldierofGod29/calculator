@@ -4,6 +4,8 @@
 //Variables used throught the java-script file
 let display = document.querySelector('.top-display');
 
+let posnegButton = document.querySelector('.positive-negative');
+
 let numButtons = document.querySelectorAll('.number');
 let operatorButtons = document.querySelectorAll('.operator')
 let equalButton = document.querySelector('.equal');
@@ -25,6 +27,7 @@ operatorButtons.forEach((opbutton) => {
      opbutton.disabled = true;
 })
 decimalButton.disabled = true;
+posnegButton.disabled = true;
 
 //Functions for operators
 function operate (firstNumber, operator, secondNumber)
@@ -93,6 +96,7 @@ clearButton.addEventListener('click', function() {
         opbutton.setAttribute('style', 'background-color: orangered; color: white');
     })
     decimalButton.disabled = true;
+    posnegButton.disabled = true;
 })
 
 operatorButtons.forEach((button) => {
@@ -140,6 +144,11 @@ equalButton.addEventListener('click', function(){
         total = operate(firstNumber, operator, secondNumber);
         display.textContent = total.toExponential(4);
     }
+    else if (operate(firstNumber, operator, secondNumber) >= 100000)
+    {
+        total = operate(firstNumber, operator, secondNumber);
+        display.textContent = total.toExponential(4);
+    }
     else
     {
         switch (beforeDecimal(operate(firstNumber, operator, secondNumber)))
@@ -172,7 +181,6 @@ equalButton.addEventListener('click', function(){
         }
     }
     displayVal = operate(firstNumber, operator, secondNumber);
-    console.log(firstNumber, secondNumber, displayVal)
     operator = "";
     firstNumber = 0;
     secondNumber = 0;
@@ -196,6 +204,7 @@ numButtons.forEach((button) =>{
             numButtons.forEach((numb) => {
                 numb.disabled = true;
             })
+            decimalButton.disabled = true;
         }
        
         if (numberPressed != false)
@@ -216,6 +225,7 @@ numButtons.forEach((button) =>{
             })
             decPressed = true;
             decimalButton.disabled = false;
+            posnegButton.disabled = false;
         }   
     })   
 })
@@ -227,4 +237,17 @@ decimalButton.addEventListener('click', function(){
     }
     
     display.textContent = display.textContent + ".";
+})
+
+posnegButton.addEventListener('click', function(){
+    if (display.textContent.includes("-") != true)
+    {
+        display.textContent = "-" + display.textContent;
+        displayVal = -Math.abs(Number(display.textContent));
+    }
+    else
+    {
+        display.textContent = display.textContent.replace('-', '');
+        displayVal = +Math.abs(Number(display.textContent));
+    }   
 })
