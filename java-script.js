@@ -79,6 +79,9 @@ clearButton.addEventListener('click', function() {
     operatorButtons.forEach((opbutton) => {
         opbutton.disabled = true;
     })
+    operatorButtons.forEach((opbutton) => {
+        opbutton.setAttribute('style', 'background-color: orangered; color: white');
+    })
 })
 
 operatorButtons.forEach((button) => {
@@ -89,6 +92,7 @@ operatorButtons.forEach((button) => {
             operatorButtons.forEach((opbutton) => {
                 opbutton.disabled = true;
             })
+            button.setAttribute('style', 'background-color: white; color: orangered');
         }
         if (operator != "")
         {
@@ -116,14 +120,19 @@ operatorButtons.forEach((button) => {
 
 equalButton.addEventListener('click', function(){
     secondNumber = displayVal;
-    if (secondNumber == 0)
+    if (numberPressed == false)
     {
         secondNumber = firstNumber;
     }
-    if ((operate(firstNumber, operator, secondNumber)).toString().length >= 8)
+    if ((operate(firstNumber, operator, secondNumber)).toString().length >= 8 && operator != "/" && (operate(firstNumber, operator, secondNumber).toString().includes(".")) != true)
     {
         total = operate(firstNumber, operator, secondNumber);
         display.textContent = total.toExponential(4);
+    }
+    else if (operate(firstNumber, operator, secondNumber).toString().length >= 7 && operate(firstNumber, operator, secondNumber).toString().includes(".") == true)
+    {
+        total = operate(firstNumber, operator, secondNumber);
+        display.textContent = +(Math.round(total + "e-6") + "e-6");
     }
     else
     {
@@ -139,6 +148,7 @@ equalButton.addEventListener('click', function(){
     })
     operatorButtons.forEach((opbutton) => {
         opbutton.disabled = false;
+        opbutton.setAttribute('style', 'background-color: orangered; color: white');
     })
     amountNumPressed = 0;
     equalButton.disabled = true;
@@ -167,8 +177,8 @@ numButtons.forEach((button) =>{
             amountNumPressed += 1;
             operatorButtons.forEach((opbutton) => {
                 opbutton.disabled = false;
+                opbutton.setAttribute('style', 'background-color: orangered; color: white');
             })
-        }
-           
+        }   
     })   
 })
