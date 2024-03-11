@@ -8,6 +8,7 @@ let numButtons = document.querySelectorAll('.number');
 let operatorButtons = document.querySelectorAll('.operator')
 let equalButton = document.querySelector('.equal');
 let clearButton = document.querySelector('.clear');
+let decimalButton = document.querySelector('.decimal');
 
 let firstNumber = 0;
 let secondNumber = 0;
@@ -16,12 +17,14 @@ let operator = "";
 let numberPressed = false;
 let amountNumPressed = 0;
 let opPressed = false;
+let decPressed = false;
 let displayVal;
 
 equalButton.disabled = true;
 operatorButtons.forEach((opbutton) => {
      opbutton.disabled = true;
 })
+decimalButton.disabled = true;
 
 //Functions for operators
 function operate (firstNumber, operator, secondNumber)
@@ -64,6 +67,12 @@ function divideNums (firstNumber, secondNumber)
     return +(Math.round((firstNumber/secondNumber) + "e+6") + "e-6");
 }
 
+function beforeDecimal (number)
+{
+    let digitArray = number.toString().split('.');
+    return digitArray[0].length;
+}
+
 //Event listeners for Buttons
 clearButton.addEventListener('click', function() {
     display.textContent = "0";
@@ -72,6 +81,7 @@ clearButton.addEventListener('click', function() {
     displayVal = 0;
     operator = "";
     numberPressed = false;
+    decPressed = false;
     amountNumPressed = 0;
     numButtons.forEach((button) => {
         button.disabled = false;
@@ -82,6 +92,7 @@ clearButton.addEventListener('click', function() {
     operatorButtons.forEach((opbutton) => {
         opbutton.setAttribute('style', 'background-color: orangered; color: white');
     })
+    decimalButton.disabled = true;
 })
 
 operatorButtons.forEach((button) => {
@@ -129,16 +140,39 @@ equalButton.addEventListener('click', function(){
         total = operate(firstNumber, operator, secondNumber);
         display.textContent = total.toExponential(4);
     }
-    else if (operate(firstNumber, operator, secondNumber).toString().length >= 7 && operate(firstNumber, operator, secondNumber).toString().includes(".") == true)
-    {
-        total = operate(firstNumber, operator, secondNumber);
-        display.textContent = +(Math.round(total + "e-6") + "e-6");
-    }
     else
     {
-        display.textContent = operate(firstNumber, operator, secondNumber);
+        switch (beforeDecimal(operate(firstNumber, operator, secondNumber)))
+        {
+            case 1:
+                display.textContent = parseFloat(operate(firstNumber, operator, secondNumber).toFixed(8));
+                break;
+            case 2:
+                display.textContent = parseFloat(operate(firstNumber, operator, secondNumber).toFixed(7));
+                break;
+            case 3:
+                display.textContent = parseFloat(operate(firstNumber, operator, secondNumber).toFixed(6));
+                break;
+            case 4:
+                display.textContent = parseFloat(operate(firstNumber, operator, secondNumber).toFixed(5));
+                break;
+            case 5:
+                display.textContent = parseFloat(operate(firstNumber, operator, secondNumber).toFixed(4));
+                break;
+            case 6:
+                display.textContent = parseFloat(operate(firstNumber, operator, secondNumber).toFixed(3));
+                break;
+            case 7:
+                display.textContent = parseFloat(operate(firstNumber, operator, secondNumber).toFixed(2));
+                break;
+            case 8:
+                display.textContent = parseFloat(operate(firstNumber, operator, secondNumber).toFixed(1));
+                break;
+            default: display.textContent = operate(firstNumber, operator, secondNumber);
+        }
     }
     displayVal = operate(firstNumber, operator, secondNumber);
+    console.log(firstNumber, secondNumber, displayVal)
     operator = "";
     firstNumber = 0;
     secondNumber = 0;
@@ -152,6 +186,7 @@ equalButton.addEventListener('click', function(){
     })
     amountNumPressed = 0;
     equalButton.disabled = true;
+    decimalButton.disabled = true;
 })
 
 numButtons.forEach((button) =>{
@@ -179,6 +214,17 @@ numButtons.forEach((button) =>{
                 opbutton.disabled = false;
                 opbutton.setAttribute('style', 'background-color: orangered; color: white');
             })
+            decPressed = true;
+            decimalButton.disabled = false;
         }   
     })   
+})
+
+decimalButton.addEventListener('click', function(){
+    if (decPressed == true)
+    {
+        decimalButton.disabled = true;
+    }
+    
+    display.textContent = display.textContent + ".";
 })
