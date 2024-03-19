@@ -5,6 +5,7 @@
 let display = document.querySelector('.top-display');
 
 let posnegButton = document.querySelector('.positive-negative');
+let percentButton = document.querySelector('.percent');
 
 let numButtons = document.querySelectorAll('.number');
 let operatorButtons = document.querySelectorAll('.operator')
@@ -149,6 +150,10 @@ equalButton.addEventListener('click', function(){
         total = operate(firstNumber, operator, secondNumber);
         display.textContent = total.toExponential(4);
     }
+    else if (secondNumber == 0 && operator == "/")
+    {
+        display.textContent = "Nice Try!";
+    }
     else
     {
         switch (beforeDecimal(operate(firstNumber, operator, secondNumber)))
@@ -250,4 +255,17 @@ posnegButton.addEventListener('click', function(){
         display.textContent = display.textContent.replace('-', '');
         displayVal = +Math.abs(Number(display.textContent));
     }   
+})
+
+percentButton.addEventListener('click', function(){
+    if (display.textContent.length > 7)
+    {
+        display.textContent = (Number(display.textContent) / 100).toExponential(4);
+        displayVal = (Number(display.textContent) / 100).toExponential(4);
+    }
+    else
+    {
+        display.textContent = (Number(display.textContent) / 100);
+        displayVal = (Number(display.textContent) / 100);
+    }
 })
