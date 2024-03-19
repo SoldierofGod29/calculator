@@ -145,7 +145,7 @@ equalButton.addEventListener('click', function(){
         total = operate(firstNumber, operator, secondNumber);
         display.textContent = total.toExponential(4);
     }
-    else if (operate(firstNumber, operator, secondNumber) >= 100000)
+    else if (operate(firstNumber, operator, secondNumber) >= 100000 || operate(firstNumber, operator, secondNumber) <= -100000)
     {
         total = operate(firstNumber, operator, secondNumber);
         display.textContent = total.toExponential(4);
@@ -269,3 +269,4 @@ percentButton.addEventListener('click', function(){
         displayVal = (Number(display.textContent) / 100);
     }
 })
+
